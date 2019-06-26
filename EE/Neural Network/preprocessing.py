@@ -1,7 +1,8 @@
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
 
-x = Image.open('main.jpg','r').resize((32,32))
+x = Image.open('test.png','r')#.resize((28,28))
 x = x.convert('L') 
 y = np.asarray(x.getdata(), dtype=np.float64)#.reshape((x.size[1],x.size[0]))
 #to have just a list of pixed, comment out .reshape
@@ -17,6 +18,10 @@ with np.nditer(y, op_flags=['readwrite']) as it:
 			x[...] = 0
 
 #to stop conversion to image comment out the next two lines
-#w = Image.fromarray(y,mode='L')
+#w = y.reshape(28,28)
+#w = Image.fromarray(w,mode='L')
 #w.save('out.jpg')
-np.savetxt("foo.csv", y,fmt='%i')#, delimiter=",")
+#a = np.reshape(y, (28,28))
+#plt.imshow(a, cmap='gray')
+#plt.show()
+np.savetxt("foo.csv", y.reshape(1,y.shape[0]),fmt='%i', delimiter=",")
